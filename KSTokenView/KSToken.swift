@@ -68,8 +68,11 @@ open class KSToken : UIControl {
    /// Token border width
    open var borderWidth: CGFloat = 0.0
    
-   ///Token border color
+   /// Token border color
    open var borderColor: UIColor = UIColor.black
+   
+   /// Token font
+   open var font: UIFont = .systemFont(ofSize: 10)
    
    /// default is 200. Maximum width of token. After maximum limit is reached title is truncated at end with '...'
    fileprivate var _maxWidth: CGFloat? = 200
@@ -148,13 +151,12 @@ open class KSToken : UIControl {
       rectanglePath.fill()
       
       var paddingX: CGFloat = 0.0
-      var font = UIFont.systemFont(ofSize: 14)
+    
       var tokenField: KSTokenField? {
          return superview! as? KSTokenField
       }
       if ((tokenField) != nil) {
          paddingX = tokenField!.paddingX()!
-         font = tokenField!.tokenFont()!
       }
       
       // Text
