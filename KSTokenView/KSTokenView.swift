@@ -735,7 +735,6 @@ open class KSTokenView: UIView {
     fileprivate func _showSearchResults() {
         guard !_showingSearchResult else {return}
         _showingSearchResult = true
-        print("SnowSea HSHOW")
         addSubview(_searchTableView)
         let tokenFieldHeight = _tokenField.frame.height
         _searchTableView.isHidden = false
