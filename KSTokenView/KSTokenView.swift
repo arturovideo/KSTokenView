@@ -244,7 +244,16 @@ open class KSTokenView: UIView {
          }
       }
    }
-   
+
+    /// default is UIFont.systemFontOfSize(16)
+    @objc open var searchResultFont: UIFont = UIFont.systemFont(ofSize: 16) {
+        didSet {
+            if (oldValue != searchResultFont) {
+                _searchTableView.reloadData()
+            }
+        }
+    }
+    
    /// default is 50.0. Caret moves to new line if input width is less than this value
    @objc open var minWidthForInput: CGFloat = 50.0 {
       didSet {
@@ -726,6 +735,7 @@ open class KSTokenView: UIView {
     fileprivate func _showSearchResults() {
         guard !_showingSearchResult else {return}
         _showingSearchResult = true
+        print("SnowSea HSHOW")
         addSubview(_searchTableView)
         let tokenFieldHeight = _tokenField.frame.height
         _searchTableView.isHidden = false
@@ -960,6 +970,7 @@ extension KSTokenView : UITableViewDataSource {
       let title = delegate?.tokenView(self, displayTitleForObject: _resultArray[(indexPath as NSIndexPath).row])
       cell!.textLabel!.text = (title != nil) ? title : "No Title"
       cell!.selectionStyle = UITableViewCellSelectionStyle.none
+      cell!.textLabel!.font = searchResultFont
       return cell!
    }
 }
