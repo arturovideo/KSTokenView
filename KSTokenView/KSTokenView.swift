@@ -71,6 +71,7 @@ import UIKit
    
    @objc func tokenView(_ tokenView: KSTokenView, performSearchWithString string: String, completion: ((_ results: Array<AnyObject>) -> Void)?)
    @objc func tokenView(_ tokenView: KSTokenView, displayTitleForObject object: AnyObject) -> String
+   @objc optional func tokenView(_ tokenView: KSTokenView, configureSearchTableView tableView: UITableView)
    @objc optional func tokenView(_ tokenView: KSTokenView, withObject object: AnyObject, tableView: UITableView, cellForRowAtIndexPath indexPath: IndexPath) -> UITableViewCell
    @objc optional func tokenView(_ tokenView: KSTokenView, didSelectRowAtIndexPath indexPath: IndexPath)
    
@@ -137,7 +138,11 @@ open class KSTokenView: UIView {
    @objc open var minimumCharactersToSearch = 1
    
    /// default is nil
-   @objc weak open var delegate: KSTokenViewDelegate?
+   @objc weak open var delegate: KSTokenViewDelegate? {
+      didSet {
+         self.delegate?.tokenView?(self, configureSearchTableView: _searchTableView)
+      }
+   }
    
    /// default is .Vertical.
    @objc open var direction: KSTokenViewScrollDirection = .vertical {
