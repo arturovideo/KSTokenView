@@ -74,6 +74,7 @@ import UIKit
    @objc optional func tokenView(_ tokenView: KSTokenView, configureSearchTableView tableView: UITableView)
    @objc optional func tokenView(_ tokenView: KSTokenView, withObject object: AnyObject, tableView: UITableView, cellForRowAtIndexPath indexPath: IndexPath) -> UITableViewCell
    @objc optional func tokenView(_ tokenView: KSTokenView, didSelectRowAtIndexPath indexPath: IndexPath)
+   @objc optional func tokenView(_ tokenView: KSTokenView, didDeselectRowAtIndexPath indexPath: IndexPath)
    
    @objc optional func tokenViewShouldDeleteAllToken(_ tokenView: KSTokenView) -> Bool
    @objc optional func tokenViewWillDeleteAllToken(_ tokenView: KSTokenView)
@@ -711,7 +712,7 @@ open class KSTokenView: UIView {
    
    - parameter string: Search keyword
    */
-   func startSearchWithString(_ string: String) {
+   public func startSearchWithString(_ string: String) {
       if (!_canAddMoreToken()) {
          return
       }
@@ -948,6 +949,10 @@ extension KSTokenView : UITableViewDelegate {
          _resultArray.remove(at: (indexPath as NSIndexPath).row)
          tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.left)
       }
+   }
+   
+   public func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+      delegate?.tokenView?(self, didDeselectRowAtIndexPath: indexPath)
    }
 }
 
