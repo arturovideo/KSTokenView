@@ -161,6 +161,9 @@ open class KSTokenView: UIView {
       }
    }
    
+   /// Default is true
+   @objc open var shouldShowSearchResults: Bool = true
+   
    /// Default is (TokenViewWidth, 200)
    @objc open var searchResultHeight: CGFloat = 200 {
       didSet {
@@ -713,6 +716,12 @@ open class KSTokenView: UIView {
    - parameter string: Search keyword
    */
    public func startSearchWithString(_ string: String) {
+      guard self.shouldShowSearchResults else {
+         let trimmedSearchString = string.trimmingCharacters(in: CharacterSet.whitespaces)
+         delegate?.tokenView(self, performSearchWithString:trimmedSearchString, completion: nil)
+         return
+      }
+      
       if (!_canAddMoreToken()) {
          return
       }
