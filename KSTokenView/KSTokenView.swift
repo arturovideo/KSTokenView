@@ -490,7 +490,7 @@ open class KSTokenView: UIView {
       if (!removingAll) {
          delegate?.tokenView?(self, didDeleteToken: token)
          if (_showingSearchResult) {
-            _startSearchWithString("")
+            startSearchWithString("")
          }
       }
    }
@@ -636,7 +636,7 @@ open class KSTokenView: UIView {
       delegate?.tokenViewDidDeleteAllToken?(self)
       
       if (_showingSearchResult) {
-         _startSearchWithString(_lastSearchString)
+         startSearchWithString(_lastSearchString)
       }
    }
    
@@ -677,7 +677,7 @@ open class KSTokenView: UIView {
       delegate?.tokenViewDidBeginEditing?(self)
       tokenField.tokenize()
       if (minimumCharactersToSearch == 0) {
-         _startSearchWithString("")
+         startSearchWithString("")
       }
    }
    
@@ -711,7 +711,7 @@ open class KSTokenView: UIView {
    
    - parameter string: Search keyword
    */
-   fileprivate func _startSearchWithString(_ string: String) {
+   func startSearchWithString(_ string: String) {
       if (!_canAddMoreToken()) {
          return
       }
@@ -913,7 +913,7 @@ extension KSTokenView : UITextFieldDelegate {
       // Allow all other characters
       if (searchString.count >= minimumCharactersToSearch && searchString != "\n") {
          _lastSearchString = searchString
-         _startSearchWithString(_lastSearchString)
+         startSearchWithString(_lastSearchString)
       } else {
          _hideSearchResults()
       }
