@@ -517,7 +517,8 @@ open class KSTokenField: UITextField {
    }
    
    fileprivate func _leftViewRect() -> CGRect {
-      if (leftViewMode == .never ||
+      if ((leftView as? UILabel)?.text?.isEmpty == true ||
+          leftViewMode == .never ||
          (leftViewMode == .unlessEditing && isEditing) ||
          (leftViewMode == .whileEditing && !isEditing)) {
             return .zero
@@ -614,7 +615,7 @@ open class KSTokenField: UITextField {
    fileprivate func _initPlaceholderLabel() {
       let xPos = _marginX!
       if (_placeholderLabel == nil) {
-         _placeholderLabel = UILabel(frame: CGRect(x: xPos, y: leftView!.frame.origin.y, width: _selfFrame!.width - xPos - _leftViewRect().size.width, height: _leftViewRect().size.height))
+         _placeholderLabel = UILabel(frame: CGRect(x: xPos, y: _leftViewRect().origin.y, width: _selfFrame!.width - xPos - _leftViewRect().size.width, height: _leftViewRect().size.height))
          _placeholderLabel?.textColor = placeHolderColor
          _placeholderLabel?.font = _font
          _scrollView.addSubview(_placeholderLabel!)

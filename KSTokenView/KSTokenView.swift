@@ -28,6 +28,7 @@ import UIKit
 @objc public enum KSTokenViewStyle: Int {
    case rounded
    case squared
+   case none
 }
 
 @objc public enum KSTokenViewScrollDirection: Int {
@@ -403,7 +404,6 @@ open class KSTokenView: UIView {
    //
    
    fileprivate func _commonSetup() {
-      backgroundColor = UIColor.clear
       clipsToBounds = true
       _tokenField = KSTokenField(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.height))
       _tokenField.textColor = UIColor.black
@@ -413,7 +413,9 @@ open class KSTokenView: UIView {
       _tokenField.autoresizingMask = [.flexibleWidth]
       _updateTokenField()
       addSubview(_tokenField)
-      
+
+      backgroundColor = UIColor.clear
+
       _indicator.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
       _indicator.hidesWhenStopped = true
       _indicator.stopAnimating()
@@ -459,6 +461,10 @@ open class KSTokenView: UIView {
    
    fileprivate func _updateTokenFieldLayout(_ newValue: KSTokenViewStyle) {
       switch (newValue) {
+      case .none:
+         _tokenField.borderStyle = .none
+         backgroundColor = UIColor.clear
+
       case .rounded:
          _tokenField.borderStyle = .roundedRect
          backgroundColor = UIColor.clear
